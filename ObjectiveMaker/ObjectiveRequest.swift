@@ -8,23 +8,10 @@
 import Foundation
 import FoundationModels
 
-
-
 @Generable
 struct ObjectiveSuggestions {
     @Guide(description: "A list of suggested ObjectiveOptions.", .count(3) )
     var options: [ObjectiveOption]
-}
-
-
-@Generable
-struct ObjectiveOption: Hashable {
-    
-    @Guide(description: "The name for this learning objective summarizing the description.  (e.g., Applied Population Genetic Analysis) ")
-    let title: String
-    
-    @Guide(description: "The full description of this learning objective. ")
-    let description: String
 }
 
 
@@ -49,10 +36,10 @@ import Playgrounds
     let session = LanguageModelSession()
     //let response = try await session.respond( to: "Tell me a joke.")
     let response = try await session.respond( to: prompt,
-                                                generating: ObjectiveSuggestions.self )
+                                                generating: ObjectiveOption.self )
     
-    print("\(response)")
-    
+    print("Title: \(response.content.title)")
+    print("Description: \(response.content.description)")
     
     
 }

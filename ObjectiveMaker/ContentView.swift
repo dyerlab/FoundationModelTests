@@ -57,12 +57,8 @@ struct ContentView: View {
                 .font(.title2)
             
             List( objectiveSuggestions.options, id:\.self ) { option in
-                VStack(alignment: .leading) {
-                    Text("\(option.title)")
-                        .font(.headline)
-                    Text("\(option.description)")
-                        .foregroundStyle(.secondary)
-                }
+                
+                ObjectiveOptionLineView(objective: option)
 
             }
             
@@ -76,7 +72,7 @@ struct ContentView: View {
     
     private func getSuggestions() async throws  {
         let response = try await session.respond(to: String("\(prompt) '\(learningObjective)'"),
-                                                                 generating: ObjectiveSuggestions.self)
+                                                 generating: ObjectiveSuggestions.self)
         self.objectiveSuggestions = response.content
     }
     
